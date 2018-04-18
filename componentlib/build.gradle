@@ -34,5 +34,7 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies['dagger2-android-processor']
     annotationProcessor rootProject.ext.dependencies['dagger2-compiler']
 
+    api rootProject.ext.dependencies['arouter']
+
 
 }

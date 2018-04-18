@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bj.componentlib.base.BaseApplication;
 import com.bj.componentlib.base.BaseFragment;
+import com.bj.componentlib.router.arouter.ARouterPath;
 import com.bj.lightapp.R;
 import com.bj.lightapp.adapter.LightAppAdapter;
 import com.bj.lightapp.data.protocol.LightAppRes;
@@ -29,6 +31,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
+@Route(path = ARouterPath.URL_LIGHT_APP_FRAGMENT)
 public class LightAppFragment extends BaseFragment<LightAppPresenter> implements LightAppContract.View{
 
     private RecyclerView mRecyclerView;
