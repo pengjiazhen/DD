@@ -1,0 +1,1 @@
+include ':app', ':lightappcomponent', ':basiclib', ':girlscomponent', ':usercomponent', ':basicres', ':componentlib', ':componentservice'

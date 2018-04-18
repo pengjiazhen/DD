@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bj.lightapp" >
+    <application>
+        <activity android:name=".ui.activity.LightAppActivity"/>
+    </application>
+</manifest>
+

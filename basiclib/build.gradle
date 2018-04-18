@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //support
+    api rootProject.ext.dependencies['appcompat-v7']
+    api rootProject.ext.dependencies['recyclerview-v7']
+
+    //api 'com.luojilab.ddcomponent:componentlib:1.3.0'
+
+    api rootProject.ext.dependencies['retrofit']
+    api rootProject.ext.dependencies['retrofit-converter-gson']
+    api rootProject.ext.dependencies['retrofit-adapter-rxjava2']
+    api rootProject.ext.dependencies['rxandroid2']
+
+    api rootProject.ext.dependencies['adapter-helper']
+
+    api rootProject.ext.dependencies['glide']
+
+    //dagger
+    api rootProject.ext.dependencies['dagger2']
+    annotationProcessor rootProject.ext.dependencies['dagger2-compiler']
+    //dagger-android
+    api rootProject.ext.dependencies['dagger2-android']
+    api rootProject.ext.dependencies['dagger2-android-support'] // if you use the support libraries
+    annotationProcessor rootProject.ext.dependencies['dagger2-android-processor']
+
+
+}
