@@ -1,7 +1,5 @@
 package com.bj.lightapp.mvp.presenter;
 
-import android.util.Log;
-
 import com.bj.componentlib.mvp.BasePresenter;
 import com.bj.lightapp.data.protocol.LightAppRes;
 import com.bj.lightapp.mvp.contract.LightAppContract;
@@ -29,7 +27,7 @@ public class LightAppPresenter extends BasePresenter<LightAppContract.Model,Ligh
                 .subscribe(new Consumer<List<LightAppRes>>() {
                     @Override
                     public void accept(List<LightAppRes> lightAppRes) {
-                        Log.d(TAG, lightAppRes.toString());
+                        //Log.d(TAG, lightAppRes.toString());
                         mRootView.refreshLightAppList(lightAppRes);
                     }
                 });

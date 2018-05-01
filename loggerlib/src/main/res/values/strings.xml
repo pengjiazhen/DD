@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">LogDataLib</string>
+    <string name="log_platform">platform</string>
+    <string name="log_model">model</string>
+    <string name="log_app_key">appKey</string>
+    <string name="log_log_infos">logInfos</string>
+    <string name="log_log_type">logType</string>
+    <string name="log_log_level">logLevel</string>
+    <string name="log_app_version">appVersion</string>
+    <string name="log_os_version">osVersion</string>
+    <string name="log_user_info">userInfo</string>
+    <string name="log_network">network</string>
+    <string name="log_cpu">cpu</string>
+    <string name="log_memory">memory</string>
+    <string name="log_event_id">eventId</string>
+    <string name="log_event_tag">eventTag</string>
+    <string name="log_crash_name">crashName</string>
+    <string name="log_crash_info">crashInfo</string>
+    <string name="log_crash_content">crashContent</string>
+    <string name="log_start_time">sTime</string>
+    <string name="log_end_name">eTime</string>
+    <string name="log_duration">duration</string>
+    <string name="log_platform_android">android</string>
+    <string name="can_not_find_version_name">无法获取版本号信息</string>
+    <string name="network_type_none">none</string>
+    <string name="network_type_wifi">wifi</string>
+    <string name="network_type_4G">4G</string>
+    <string name="network_type_3G">3G</string>
+    <string name="network_type_2G">2G</string>
+    <string name="log_app_key_android">hiq</string>
+    <string name="blank_space"> </string>
+    <string name="app_error_exit">程序出故障了，即将退出</string>
+</resources>

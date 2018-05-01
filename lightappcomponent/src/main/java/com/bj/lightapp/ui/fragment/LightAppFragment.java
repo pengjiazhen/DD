@@ -18,11 +18,14 @@ import com.bj.componentlib.base.BaseFragment;
 import com.bj.componentlib.router.arouter.ARouterPath;
 import com.bj.lightapp.R;
 import com.bj.lightapp.adapter.LightAppAdapter;
+import com.bj.lightapp.aspectj.ClickBean;
+import com.bj.lightapp.aspectj.ClickTrack;
 import com.bj.lightapp.data.protocol.LightAppRes;
 import com.bj.lightapp.di.component.DaggerLightAppComponent;
 import com.bj.lightapp.di.module.LightAppModule;
 import com.bj.lightapp.mvp.contract.LightAppContract;
 import com.bj.lightapp.mvp.presenter.LightAppPresenter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,14 @@ public class LightAppFragment extends BaseFragment<LightAppPresenter> implements
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 4);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mLightAppAdapter = new LightAppAdapter(R.layout.item_light_app,new ArrayList<LightAppRes>());
+        mLightAppAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                List data = adapter.getData();
+                LightAppRes lightAppRes = (LightAppRes) data.get(position);
+                onLightAppClick(new ClickBean(lightAppRes.getAppId(),lightAppRes));
+            }
+        });
         mRecyclerView.setAdapter(mLightAppAdapter);
 
         DaggerLightAppComponent.builder()
@@ -68,6 +79,12 @@ public class LightAppFragment extends BaseFragment<LightAppPresenter> implements
                 .inject(this);
         mPresenter.getLightAppList("93964");
 
+    }
+
+
+    @ClickTrack(id=1324343)
+    private void onLightAppClick(ClickBean clickBean) {
+       //clickBean.
     }
 
     @Override
@@ -98,5 +115,15 @@ public class LightAppFragment extends BaseFragment<LightAppPresenter> implements
     @Override
     public void killMyself() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

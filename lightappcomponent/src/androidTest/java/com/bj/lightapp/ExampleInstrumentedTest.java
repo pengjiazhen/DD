@@ -5,18 +5,15 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
-import com.bj.basic.data.manager.RepositoryManager;
-import com.bj.lightapp.data.protocol.LightAppRes;
-import com.bj.lightapp.mvp.model.LightAppModel;
+import com.longfor.log.db.DBLogConstants;
+import com.longfor.log.db.DataBaseManager;
+import com.longfor.log.db.bean.CommonsLog;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,7 +34,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testHello(){
-        LightAppModel lightAppModel = new LightAppModel(RepositoryManager.getInstance(null));
+       /* LightAppModel lightAppModel = new LightAppModel(RepositoryManager.getInstance(null));
         lightAppModel.getLightAppList("93964")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -46,6 +43,39 @@ public class ExampleInstrumentedTest {
                     public void accept(List<LightAppRes> lightAppRes) {
                         Log.d("sss",lightAppRes.toString());
                     }
-                });;
+                });;*/
     }
+
+    @Test
+    public void test() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        assertEquals("com.bj.lightapp", appContext.getPackageName());
+
+        DataBaseManager manager = DataBaseManager.getInstance().init(appContext);
+
+        CommonsLog commonsLog = new CommonsLog();
+        commonsLog.setId(32L);
+        commonsLog.setLogType(DBLogConstants.LOG_TYPE.CLICK.ordinal());
+        commonsLog.setJson("{}");
+        commonsLog.setTime(System.currentTimeMillis());
+        manager.addCommonsLog(commonsLog);
+    }
+
+    @After
+    public void testA() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        assertEquals("com.bj.lightapp", appContext.getPackageName());
+
+        DataBaseManager manager = DataBaseManager.getInstance().init(appContext);
+
+        List<CommonsLog> commonsLog = manager.getCommonsLog();
+
+        Log.e("PJZ",""+commonsLog.toString());
+    }
+
+
 }

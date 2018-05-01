@@ -1,1 +1,3 @@
-include ':app', ':lightappcomponent', ':basiclib', ':girlscomponent', ':usercomponent', ':basicres', ':componentlib', ':componentservice'
+include ':app', ':lightappcomponent', ':basiclib', ':girlscomponent',
+        ':usercomponent', ':basicres', ':componentlib', ':componentservice',
+        'loggerlib'
