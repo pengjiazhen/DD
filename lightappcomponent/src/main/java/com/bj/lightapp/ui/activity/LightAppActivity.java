@@ -31,4 +31,9 @@ public class LightAppActivity extends BaseActivity {
     protected String getTag() {
         return LightAppActivity.class.getSimpleName();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -16,4 +16,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     protected abstract String getTag();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

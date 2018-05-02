@@ -25,6 +25,7 @@ import com.bj.lightapp.di.component.DaggerLightAppComponent;
 import com.bj.lightapp.di.module.LightAppModule;
 import com.bj.lightapp.mvp.contract.LightAppContract;
 import com.bj.lightapp.mvp.presenter.LightAppPresenter;
+import com.bj.lightapp.ui.activity.BrowserActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
@@ -85,6 +86,8 @@ public class LightAppFragment extends BaseFragment<LightAppPresenter> implements
     @ClickTrack(id=1324343)
     private void onLightAppClick(ClickBean clickBean) {
        //clickBean.
+        Intent intent = new Intent(getContext(), BrowserActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.bj.lightapp.aspectj;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.bj.componentlib.base.BaseApplication;
@@ -14,6 +15,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
 import java.lang.reflect.Method;
+import java.util.Stack;
 
 /**
  * Created by jiazhen on 2018/4/28.
@@ -26,15 +28,40 @@ public class LightAppAspectJ {
 
     BehaviourLogFactory mFactoryShow;
     LogInfo mBehaviourShowLog; // 界面展示时长日志
-    BehaviourLogFactory mFactoryLive;
-    LogInfo mBehaviourLiveLog; // 界面存活时间日志
+
+    private Stack<Long> mActivityCreateTime = new Stack<>();
 
 
     @Before("execution(* android.app.Activity.on**(..))")
     public void onActivityMethodBefore(JoinPoint joinPoint) throws Throwable {
-        String key = joinPoint.getSignature().toString();
-        Log.d(TAG, "onActivityMethodBefore: " + key);
+        //String key = joinPoint.getSignature().toString();
+        //Log.d(TAG, "onActivityMethodBefore: " + key);
     }
+
+    @Before("execution(* android.app.Activity.onCreate(..))")
+    public void onActivityOnCreateBefore(JoinPoint joinPoint) throws Throwable {
+        String key = joinPoint.getSignature().toString();
+        if (!TextUtils.isEmpty(key) && key.contains("BaseActivity"))return;
+        mActivityCreateTime.push(System.currentTimeMillis());
+        Log.d(TAG, "" + key);
+        //Log.d(TAG, "onActivityMethodBefore: onCreate "+mFactoryLive );
+    }
+
+    @Before("execution(* android.app.Activity.onDestroy(..))")
+    public void onActivityOnDestroyBefore(JoinPoint joinPoint) throws Throwable {
+        String key = joinPoint.getSignature().toString();
+        if (!TextUtils.isEmpty(key) && key.contains("BaseActivity"))return;
+        Long startTime = mActivityCreateTime.pop();
+        BehaviourLogFactory behaviourLogFactory = new BehaviourLogFactory();
+        LogInfo logInfo = behaviourLogFactory.create();
+        logInfo.setsTime(startTime);
+        logInfo.seteTime(System.currentTimeMillis());
+        behaviourLogFactory.save(BaseApplication.i());
+        Log.d(TAG, "" + key+" 存活:"+(logInfo.geteTime()-logInfo.getsTime())+"毫秒");
+        //Log.d(TAG, "onActivityMethodBefore: onDestroy "+mFactoryLive);
+    }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Before("execution(@com.bj.lightapp.aspectj.ClickTrack * *(..))")
@@ -47,8 +74,6 @@ public class LightAppAspectJ {
                 Log.e(TAG,"onItemClick: app_id = "+clickLabel);
             }
         }
-
-
 
         Class declaringType = signature.getDeclaringType();
         Method[] declaredMethods = declaringType.getDeclaredMethods();
@@ -65,7 +90,7 @@ public class LightAppAspectJ {
         String key = joinPoint.getSignature().toString();
         mFactoryShow = new BehaviourLogFactory();
         mBehaviourShowLog = mFactoryShow.create();
-        Log.d(TAG, "onResume: sum = ");
+        Log.d(TAG, "onResume: sum = "+mFactoryShow);
     }
 
     @Before("execution(* android.support.v4.app.Fragment.onPause(..))")
@@ -73,6 +98,6 @@ public class LightAppAspectJ {
         String key = joinPoint.getSignature().toString();
         mBehaviourShowLog.seteTime(System.currentTimeMillis());
         mFactoryShow.save(BaseApplication.i());
-        Log.d(TAG, "onPause: sum = ");
+        Log.d(TAG, "onPause: sum = "+mFactoryShow);
     }
 }
