@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bj.componentlib.base.BaseActivity;
 import com.bj.componentlib.router.arouter.ARouterPath;
 import com.bj.lightapp.R;
+import com.bj.lightapp.aspectj.Async;
 import com.bj.lightapp.ui.fragment.LightAppFragment;
 import com.longfor.log.db.LogSystemManager;
 import com.longfor.log.db.listener.IUploadJsonSuccess;
@@ -22,11 +23,16 @@ public class LightAppActivity extends BaseActivity {
         LogSystemManager.getInstance().getUploadLogsConfig(new IUploadJsonSuccess() {
             @Override
             public void success(String uploadJson) {
-                Log.e(TAG,uploadJson);
+                //Log.e(TAG,uploadJson);
             }
         });
+        initData();
     }
 
+    @Async
+    public void initData(){
+        Log.e(TAG,"initData");
+    }
     @Override
     protected String getTag() {
         return LightAppActivity.class.getSimpleName();

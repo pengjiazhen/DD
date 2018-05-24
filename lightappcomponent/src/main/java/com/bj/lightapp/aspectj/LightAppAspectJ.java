@@ -43,7 +43,7 @@ public class LightAppAspectJ {
         String key = joinPoint.getSignature().toString();
         if (!TextUtils.isEmpty(key) && key.contains("BaseActivity"))return;
         mActivityCreateTime.push(System.currentTimeMillis());
-        Log.d(TAG, "" + key);
+        Log.e(TAG, "" + key);
         //Log.d(TAG, "onActivityMethodBefore: onCreate "+mFactoryLive );
     }
 
@@ -51,13 +51,16 @@ public class LightAppAspectJ {
     public void onActivityOnDestroyBefore(JoinPoint joinPoint) throws Throwable {
         String key = joinPoint.getSignature().toString();
         if (!TextUtils.isEmpty(key) && key.contains("BaseActivity"))return;
+        String declaringTypeName = joinPoint.getSignature().getDeclaringType().getSimpleName();
         Long startTime = mActivityCreateTime.pop();
         BehaviourLogFactory behaviourLogFactory = new BehaviourLogFactory();
         LogInfo logInfo = behaviourLogFactory.create();
+        logInfo.setEventId(declaringTypeName);
+        logInfo.setEventTag("live");
         logInfo.setsTime(startTime);
         logInfo.seteTime(System.currentTimeMillis());
         behaviourLogFactory.save(BaseApplication.i());
-        Log.d(TAG, "" + key+" 存活:"+(logInfo.geteTime()-logInfo.getsTime())+"毫秒");
+        Log.e(TAG, "" + declaringTypeName+" 存活:"+(logInfo.geteTime()-logInfo.getsTime())+"毫秒");
         //Log.d(TAG, "onActivityMethodBefore: onDestroy "+mFactoryLive);
     }
 
