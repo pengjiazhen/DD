@@ -26,12 +26,14 @@ public class LightAppActivity extends BaseActivity {
                 //Log.e(TAG,uploadJson);
             }
         });
+        Log.e(TAG,"onCreate当前执行线程:"+Thread.currentThread().getName());
         initData();
     }
 
+    //@DebugLog
     @Async
     public void initData(){
-        Log.e(TAG,"initData");
+        Log.e(TAG,"initData当前执行线程:"+Thread.currentThread().getName());
     }
     @Override
     protected String getTag() {
